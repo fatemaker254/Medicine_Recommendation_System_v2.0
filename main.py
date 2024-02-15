@@ -1,14 +1,18 @@
+import base64
 import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
-st.title("Medicine Recommendation Chatbot")
+st.title("Medi Recommender")
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"
 
-# Subtitle
-st.write("                🤖 : Hi, How are you Today?")
+st.write(
+    "<font size='+6'>🤖 : Hi, How are you feeling today?</font>",
+    unsafe_allow_html=True,
+)
+
 
 data = pd.read_csv("Medicine_Details.csv")
 if "messages" not in st.session_state:
@@ -44,11 +48,19 @@ def recommend_medicines(symptoms, cosine_sim=cosine_sim):
     return top_medicines
 
 
+@st.cache_data
+def get_img_as_base64(file):
+    with open(file, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+img = get_img_as_base64("image.jpg")
 # adding background image
 page_bg_img = f"""
 <style>
 [data-testid="stAppViewContainer"] > .main {{
-background-image: url("https://plus.unsplash.com/premium_photo-1668714068992-2a146166b860?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+background-image:url("data:image/jpg;base64,{img}");
 background-size: 100%;
 background-position: top left;
 background-repeat: no-repeat;
