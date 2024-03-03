@@ -36,6 +36,9 @@ def recommend_medicines(symptoms, cosine_sim=cosine_sim):
     # Transform input symptoms to TF-IDF vector
     symptoms_tfidf = tfidf_vectorizer.transform([symptoms])
 
+    if not all(symptom in tfidf_vectorizer.vocabulary_ for symptom in symptoms.split()):
+        return "Some symptoms are not recognized. Please enter valid symptoms."
+
     # Calculate similarity scores
     cosine_scores = linear_kernel(symptoms_tfidf, tfidf_matrix).flatten()
 
@@ -63,7 +66,7 @@ page_bg_img = f"""
 background-image:url("data:image/jpg;base64,{img}");
 background-size: 100%;
 background-position: top left;
-background-repeat: no-repeat;
+background-repeat: repeat;
 background-attachment: local;
 }}
 [data-testid="stHeader"] {{
