@@ -25,4 +25,5 @@ Run the streamlit app
 
 ## Sample video
 
+![image](https://github.com/fatemaker254/Medicine_Recommendation_System_v2.0/assets/81921058/62f4ed94-fd52-468c-876c-57c20b7c01f1)
 
